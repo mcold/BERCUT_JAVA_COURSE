@@ -20,7 +20,7 @@ public class TASK_4 {
     
     
     public static void swap(int i, int j, Object[] arr){
-        if(i > arr.length || j > arr.length){
+        if(i > arr.length || j > arr.length || i < 0 || j < 0){
             System.out.println("Index out of bound");
             return;
         }
