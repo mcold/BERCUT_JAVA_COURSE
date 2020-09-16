@@ -10,24 +10,10 @@ public class TASK_1 {
     }
     
     static boolean swap(int i, int j, int[] anArray){
-        // определяем максимум
-        int max, min;
-        if(j < i){
-            min = j-1;
-            max = i;
-        }else{
-            max = j;
-            min = i-1;
-        }
-        if(max > anArray.length){return false;}
-
-        // меняем местами элементы
-        int temp;
-        for(int v = 0; v < (max-min)/2; v++){
-            temp = anArray[min+v];
-            anArray[min+v] = anArray[max-1-v];
-            anArray[max-1-v] = temp;
-        }
+        if(i > anArray.length || j > anArray.length){return false;}
+        int temp = anArray[i-1];
+        anArray[i-1] = anArray[j-1];
+        anArray[j-1] = temp;
         return true;
         }
 }
