@@ -5,21 +5,7 @@ public class TASK_2 {
     }
     
     static public int min(int a, int b, int c){
-        int min = 0;
-        if(a < b){
-            if(a < c){
-                min = a;
-            }else{
-                min = c;
-            }
-        }else{
-            if(b < c){
-                min = b;
-            }else{
-                min = c;
-            }
-        }
-        return min;
+	return (a < b) ?((a < c) ? a : c) : ((b < c) ? b : c);    
     }
     
 }

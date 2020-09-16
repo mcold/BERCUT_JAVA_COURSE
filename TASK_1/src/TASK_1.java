@@ -10,7 +10,7 @@ public class TASK_1 {
     }
     
     static boolean swap(int i, int j, int[] anArray){
-        if(i > anArray.length || j > anArray.length){return false;}
+	if(i > anArray.length || j > anArray.length || i < 0 || j < 0){return false;}
         int temp = anArray[i-1];
         anArray[i-1] = anArray[j-1];
         anArray[j-1] = temp;
