@@ -8,7 +8,6 @@
  */
 
 /** Комментарии:
- * Доп 1: не знаю
  * Доп 2: не знаю как точно отфильтровать (убрать существительные)
  *
  */
@@ -19,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TASK_51 {
@@ -26,7 +26,8 @@ public class TASK_51 {
     public static void main(String[] args) throws IOException {
 
         simple_split();
-        //get_adj();
+        // stream_api();
+        // get_adj();
     }
 
 
@@ -64,6 +65,41 @@ public class TASK_51 {
                 System.out.println(entry.getKey() + "   " + entry.getValue());
             }
         }
+    }
+
+    public static void stream_api() throws IOException{
+        String file_name = "vim1.txt";
+        Integer limit_length = 3;
+
+        Integer limit_count = 100;
+
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\" + file_name);
+        List<String> lines = Files.readAllLines(p, Charset.forName("UTF-8"));
+        HashMap<String, Integer> mItems = new HashMap<>();
+
+        String var = null;
+        for(int i = 0; i < lines.size(); i++){
+            List<String> arrLine = Arrays.asList(lines.get(i).split("\\s+|\\p{Punct}+"));
+            for(int j = 0; j < arrLine.size(); j++){
+                var = arrLine.get(j).replace(" ", "");
+                if(var != "" && var.toCharArray().length > limit_length && mItems.putIfAbsent(var, 1) != null){
+                    mItems.replace(var, mItems.get(var)+1);
+                }
+            }
+        }
+
+        List<String> resMap = mItems.entrySet()
+                                          .stream()
+                                          .filter((e -> e.getKey().length() >= limit_length))
+                                          .filter(e -> e.getValue() >= limit_count)
+                                          .sorted(Comparator.comparing(Map.Entry::getKey))
+                                          .sorted(Comparator.comparing(Map.Entry::getValue))
+                                          .map(Object::toString)
+                                          .collect(Collectors.toList());
+        for(String key: resMap){
+            System.out.println(key);
+        }
+
     }
 
     public static void get_adj() throws IOException {
